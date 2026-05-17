@@ -1,0 +1,747 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sisco Security Solutions – CCTV Sales, Service & Installation</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=IBM+Plex+Sans:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --black:#080b10;
+  --dark:#0e1117;
+  --card:#111620;
+  --border:#1e2535;
+  --cyan:#00d4ff;
+  --cyan-dim:#00a8cc;
+  --cyan-glow:rgba(0,212,255,0.12);
+  --red:#ff3a3a;
+  --white:#f0f4ff;
+  --muted:#7a8599;
+  --font-head:'Bebas Neue',sans-serif;
+  --font-body:'IBM Plex Sans',sans-serif;
+  --font-mono:'IBM Plex Mono',monospace;
+}
+html{scroll-behavior:smooth}
+body{background:var(--black);color:var(--white);font-family:var(--font-body);font-size:16px;line-height:1.7;overflow-x:hidden}
+
+/* NOISE TEXTURE OVERLAY */
+body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");pointer-events:none;z-index:1000;opacity:.4}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:900;padding:0 5%;display:flex;align-items:center;justify-content:space-between;height:72px;background:rgba(8,11,16,0.92);backdrop-filter:blur(12px);border-bottom:1px solid var(--border)}
+.logo{display:flex;align-items:center;gap:12px;text-decoration:none}
+.logo-icon{width:38px;height:38px;border:1.5px solid var(--cyan);border-radius:4px;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden}
+.logo-icon svg{width:22px;height:22px}
+.logo-text{font-family:var(--font-head);font-size:22px;letter-spacing:2px;color:var(--white);line-height:1}
+.logo-sub{font-family:var(--font-mono);font-size:9px;color:var(--cyan);letter-spacing:3px;text-transform:uppercase}
+.nav-links{display:flex;align-items:center;gap:32px;list-style:none}
+.nav-links a{font-size:13px;color:var(--muted);text-decoration:none;letter-spacing:1.5px;text-transform:uppercase;font-weight:500;transition:color .2s}
+.nav-links a:hover{color:var(--cyan)}
+.nav-cta{background:var(--cyan);color:var(--black)!important;padding:8px 20px;border-radius:3px;font-weight:600!important}
+.nav-cta:hover{background:#00b8e0!important;color:var(--black)!important}
+.menu-toggle{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;padding:4px}
+.menu-toggle span{display:block;width:24px;height:1.5px;background:var(--white);transition:all .3s}
+
+/* HERO */
+.hero{position:relative;min-height:100vh;display:flex;align-items:center;padding:120px 5% 80px;overflow:hidden}
+.hero-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(0,212,255,0.04) 1px,transparent 1px),linear-gradient(90deg,rgba(0,212,255,0.04) 1px,transparent 1px);background-size:60px 60px;animation:gridpan 20s linear infinite}
+@keyframes gridpan{0%{background-position:0 0}100%{background-position:60px 60px}}
+.hero-scan{position:absolute;inset:0;overflow:hidden;pointer-events:none}
+.hero-scan::after{content:'';position:absolute;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--cyan),transparent);animation:scan 6s ease-in-out infinite;opacity:.4}
+@keyframes scan{0%{top:-2px}100%{top:100%}}
+.hero-content{position:relative;z-index:2;max-width:760px}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;font-family:var(--font-mono);font-size:11px;color:var(--cyan);letter-spacing:3px;text-transform:uppercase;border:1px solid rgba(0,212,255,0.3);padding:6px 14px;border-radius:2px;margin-bottom:28px}
+.rec-dot{width:7px;height:7px;background:var(--red);border-radius:50%;animation:blink 1.2s step-end infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
+h1.hero-title{font-family:var(--font-head);font-size:clamp(52px,9vw,110px);line-height:.92;letter-spacing:2px;margin-bottom:28px}
+h1.hero-title span{color:var(--cyan)}
+.hero-desc{font-size:18px;color:var(--muted);max-width:520px;margin-bottom:44px;font-weight:300;line-height:1.8}
+.hero-actions{display:flex;gap:16px;flex-wrap:wrap}
+.btn-primary{background:var(--cyan);color:var(--black);padding:14px 32px;text-decoration:none;font-weight:600;font-size:14px;letter-spacing:1px;text-transform:uppercase;border-radius:3px;transition:all .2s}
+.btn-primary:hover{background:#00b8e0;transform:translateY(-1px)}
+.btn-outline{border:1px solid var(--border);color:var(--white);padding:14px 32px;text-decoration:none;font-size:14px;letter-spacing:1px;text-transform:uppercase;border-radius:3px;transition:all .2s}
+.btn-outline:hover{border-color:var(--cyan);color:var(--cyan)}
+.hero-stats{position:absolute;right:5%;bottom:10%;display:flex;flex-direction:column;gap:20px;z-index:2}
+.stat-box{border:1px solid var(--border);padding:16px 24px;text-align:right;position:relative;background:rgba(14,17,23,0.7)}
+.stat-box::before{content:'';position:absolute;top:-1px;left:-1px;width:16px;height:16px;border-top:2px solid var(--cyan);border-left:2px solid var(--cyan)}
+.stat-box::after{content:'';position:absolute;bottom:-1px;right:-1px;width:16px;height:16px;border-bottom:2px solid var(--cyan);border-right:2px solid var(--cyan)}
+.stat-num{font-family:var(--font-head);font-size:38px;color:var(--cyan);line-height:1}
+.stat-label{font-family:var(--font-mono);font-size:10px;color:var(--muted);letter-spacing:2px;text-transform:uppercase}
+
+/* SECTION COMMON */
+section{padding:100px 5%}
+.section-tag{font-family:var(--font-mono);font-size:10px;color:var(--cyan);letter-spacing:4px;text-transform:uppercase;margin-bottom:14px;display:flex;align-items:center;gap:10px}
+.section-tag::before{content:'';display:block;width:28px;height:1px;background:var(--cyan)}
+.section-title{font-family:var(--font-head);font-size:clamp(36px,5vw,58px);letter-spacing:1.5px;line-height:1;margin-bottom:20px}
+.section-title span{color:var(--cyan)}
+.section-desc{color:var(--muted);max-width:520px;font-size:16px;margin-bottom:56px}
+
+/* TICKER */
+.ticker{background:var(--cyan);padding:11px 0;overflow:hidden;position:relative}
+.ticker-inner{display:flex;gap:0;animation:ticker 28s linear infinite;white-space:nowrap}
+.ticker-item{font-family:var(--font-head);font-size:14px;color:var(--black);letter-spacing:3px;padding:0 32px;display:flex;align-items:center;gap:16px}
+.ticker-item::after{content:'●';font-size:6px}
+@keyframes ticker{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+
+/* SERVICES */
+.services-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1px;background:var(--border)}
+.service-card{background:var(--dark);padding:44px 36px;position:relative;overflow:hidden;transition:background .3s;cursor:default}
+.service-card:hover{background:var(--card)}
+.service-card::before{content:'';position:absolute;top:0;left:0;width:3px;height:0;background:var(--cyan);transition:height .4s}
+.service-card:hover::before{height:100%}
+.service-icon{width:52px;height:52px;border:1px solid var(--border);display:flex;align-items:center;justify-content:center;margin-bottom:28px;border-radius:4px;transition:border-color .3s}
+.service-card:hover .service-icon{border-color:var(--cyan)}
+.service-icon svg{width:28px;height:28px;stroke:var(--cyan);fill:none;stroke-width:1.5}
+.service-card h3{font-family:var(--font-head);font-size:26px;letter-spacing:1px;margin-bottom:12px}
+.service-card p{color:var(--muted);font-size:14px;line-height:1.8}
+.service-num{position:absolute;top:36px;right:36px;font-family:var(--font-mono);font-size:11px;color:var(--border);letter-spacing:2px}
+
+/* BLOG */
+.blog-grid{display:grid;grid-template-columns:1fr 1fr;gap:2px;background:var(--border)}
+.blog-feature{grid-column:1/-1}
+.blog-card{background:var(--dark);padding:40px;position:relative;overflow:hidden;text-decoration:none;color:var(--white);display:block;transition:background .3s}
+.blog-card:hover{background:var(--card)}
+.blog-card .scan-line{position:absolute;left:0;right:0;top:0;height:100%;background:linear-gradient(180deg,transparent 0%,rgba(0,212,255,0.03) 50%,transparent 100%);transform:translateY(-100%);transition:transform 0s}
+.blog-card:hover .scan-line{transform:translateY(100%);transition:transform .8s}
+.blog-cat{font-family:var(--font-mono);font-size:10px;color:var(--cyan);letter-spacing:3px;text-transform:uppercase;margin-bottom:16px;display:flex;align-items:center;gap:8px}
+.blog-cat::before{content:'';width:20px;height:1px;background:var(--cyan)}
+.blog-card h2{font-family:var(--font-head);font-size:clamp(24px,3vw,38px);letter-spacing:1px;line-height:1.1;margin-bottom:16px;transition:color .3s}
+.blog-card:hover h2{color:var(--cyan)}
+.blog-card p{color:var(--muted);font-size:14px;line-height:1.8;margin-bottom:24px}
+.blog-meta{display:flex;align-items:center;gap:20px;font-family:var(--font-mono);font-size:11px;color:var(--muted);letter-spacing:1px}
+.blog-meta span{display:flex;align-items:center;gap:6px}
+.tag{background:rgba(0,212,255,0.1);border:1px solid rgba(0,212,255,0.2);color:var(--cyan);font-size:10px;padding:3px 10px;border-radius:2px;font-family:var(--font-mono);letter-spacing:1px}
+.read-more{display:inline-flex;align-items:center;gap:8px;font-size:13px;color:var(--cyan);text-transform:uppercase;letter-spacing:2px;font-weight:500;margin-top:20px}
+.read-more svg{width:16px;height:16px;stroke:currentColor;fill:none;transition:transform .2s}
+.blog-card:hover .read-more svg{transform:translateX(4px)}
+
+/* WHY US */
+.why-section{background:var(--dark);border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
+.why-grid{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center}
+.why-visual{position:relative;height:420px}
+.cctv-frame{position:absolute;inset:0;border:1px solid var(--border);border-radius:4px;overflow:hidden;background:#000}
+.cctv-img-placeholder{width:100%;height:100%;background:linear-gradient(135deg,#0a0e1a 0%,#0e1420 100%);display:flex;align-items:center;justify-content:center;position:relative}
+.cctv-overlay-text{font-family:var(--font-mono);font-size:10px;color:rgba(0,212,255,0.5);letter-spacing:2px;text-align:center}
+.cctv-hud{position:absolute;inset:0;pointer-events:none}
+.cctv-corner{position:absolute;width:20px;height:20px;border-color:var(--cyan);border-style:solid;opacity:.8}
+.cctv-corner.tl{top:12px;left:12px;border-width:2px 0 0 2px}
+.cctv-corner.tr{top:12px;right:12px;border-width:2px 2px 0 0}
+.cctv-corner.bl{bottom:12px;left:12px;border-width:0 0 2px 2px}
+.cctv-corner.br{bottom:12px;right:12px;border-width:0 2px 2px 0}
+.cctv-info{position:absolute;top:20px;left:50%;transform:translateX(-50%);font-family:var(--font-mono);font-size:10px;color:var(--cyan);letter-spacing:2px;text-align:center}
+.cctv-live{display:flex;align-items:center;gap:6px;color:var(--red);font-family:var(--font-mono);font-size:10px;letter-spacing:2px}
+.cctv-bottom{position:absolute;bottom:16px;left:16px;right:16px;display:flex;justify-content:space-between;align-items:center}
+.cam-icon-big{display:block}
+.cam-icon-big svg{width:100px;height:100px;stroke:rgba(0,212,255,0.12);fill:none;stroke-width:.8}
+.why-list{display:flex;flex-direction:column;gap:28px}
+.why-item{display:flex;gap:20px;align-items:flex-start}
+.why-check{width:32px;height:32px;border:1px solid var(--cyan);border-radius:2px;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px}
+.why-check svg{width:16px;height:16px;stroke:var(--cyan);fill:none;stroke-width:2}
+.why-item h4{font-family:var(--font-head);font-size:20px;letter-spacing:1px;margin-bottom:4px}
+.why-item p{color:var(--muted);font-size:14px}
+
+/* TESTIMONIALS */
+.testimonials{background:var(--black)}
+.testi-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;background:var(--border)}
+.testi-card{background:var(--dark);padding:36px 32px;position:relative}
+.testi-card::before{content:'"';font-family:var(--font-head);font-size:80px;color:rgba(0,212,255,0.08);position:absolute;top:16px;left:24px;line-height:1}
+.testi-text{font-size:15px;color:var(--muted);line-height:1.9;margin-bottom:28px;position:relative;z-index:1;font-style:italic}
+.testi-author{display:flex;align-items:center;gap:14px}
+.testi-avatar{width:40px;height:40px;border-radius:50%;background:var(--card);border:1px solid var(--cyan);display:flex;align-items:center;justify-content:center;font-family:var(--font-head);font-size:15px;color:var(--cyan)}
+.testi-name{font-weight:600;font-size:14px}
+.testi-role{font-family:var(--font-mono);font-size:10px;color:var(--muted);letter-spacing:1px}
+.stars{color:var(--cyan);font-size:12px;margin-bottom:16px;letter-spacing:2px}
+
+/* CONTACT */
+.contact-section{background:var(--dark);border-top:1px solid var(--border)}
+.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:start}
+.contact-info{display:flex;flex-direction:column;gap:28px}
+.contact-item{display:flex;gap:16px;align-items:flex-start}
+.contact-item-icon{width:44px;height:44px;border:1px solid var(--border);border-radius:3px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.contact-item-icon svg{width:22px;height:22px;stroke:var(--cyan);fill:none;stroke-width:1.5}
+.contact-item h4{font-family:var(--font-mono);font-size:11px;color:var(--cyan);letter-spacing:2px;text-transform:uppercase;margin-bottom:4px}
+.contact-item p{color:var(--muted);font-size:14px}
+.contact-form{display:flex;flex-direction:column;gap:16px}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+input,textarea,select{width:100%;background:var(--card);border:1px solid var(--border);color:var(--white);padding:13px 16px;font-family:var(--font-body);font-size:14px;border-radius:3px;outline:none;transition:border-color .2s;-webkit-appearance:none}
+input::placeholder,textarea::placeholder{color:var(--muted)}
+input:focus,textarea:focus,select:focus{border-color:var(--cyan)}
+textarea{min-height:130px;resize:vertical}
+.submit-btn{background:var(--cyan);color:var(--black);border:none;padding:15px 32px;font-family:var(--font-body);font-weight:700;font-size:14px;letter-spacing:1px;text-transform:uppercase;border-radius:3px;cursor:pointer;transition:all .2s}
+.submit-btn:hover{background:#00b8e0;transform:translateY(-1px)}
+
+/* FOOTER */
+footer{background:var(--black);border-top:1px solid var(--border);padding:60px 5% 32px}
+.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:60px;margin-bottom:52px}
+.footer-brand .logo-text{font-size:26px}
+.footer-desc{color:var(--muted);font-size:14px;line-height:1.8;margin-top:16px;max-width:280px}
+.footer-col h5{font-family:var(--font-mono);font-size:10px;color:var(--cyan);letter-spacing:3px;text-transform:uppercase;margin-bottom:20px}
+.footer-col ul{list-style:none;display:flex;flex-direction:column;gap:12px}
+.footer-col ul a{color:var(--muted);text-decoration:none;font-size:14px;transition:color .2s}
+.footer-col ul a:hover{color:var(--white)}
+.footer-bottom{border-top:1px solid var(--border);padding-top:28px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}
+.footer-copy{font-family:var(--font-mono);font-size:11px;color:var(--muted);letter-spacing:1px}
+.social-links{display:flex;gap:16px}
+.social-links a{width:36px;height:36px;border:1px solid var(--border);border-radius:3px;display:flex;align-items:center;justify-content:center;color:var(--muted);text-decoration:none;transition:all .2s}
+.social-links a:hover{border-color:var(--cyan);color:var(--cyan)}
+.social-links svg{width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:1.5}
+
+/* MOBILE */
+@media(max-width:900px){
+  .nav-links{display:none;position:absolute;top:72px;left:0;right:0;background:var(--dark);border-bottom:1px solid var(--border);flex-direction:column;padding:20px 5%;gap:0}
+  .nav-links.open{display:flex}
+  .nav-links li{border-bottom:1px solid var(--border);padding:14px 0}
+  .menu-toggle{display:flex}
+  .hero-stats{display:none}
+  .blog-grid{grid-template-columns:1fr}
+  .blog-feature{grid-column:auto}
+  .why-grid,.contact-grid{grid-template-columns:1fr}
+  .why-visual{height:240px}
+  .testi-grid{grid-template-columns:1fr}
+  .footer-grid{grid-template-columns:1fr 1fr}
+  .form-row{grid-template-columns:1fr}
+}
+@media(max-width:580px){
+  section{padding:70px 5%}
+  .footer-grid{grid-template-columns:1fr}
+  .hero-actions{flex-direction:column}
+  .footer-bottom{flex-direction:column;text-align:center}
+}
+
+/* ANIMATIONS */
+.fade-up{opacity:0;transform:translateY(30px);transition:opacity .7s,transform .7s}
+.fade-up.visible{opacity:1;transform:translateY(0)}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="logo">
+    <div class="logo-icon">
+      <svg viewBox="0 0 24 24" fill="none" stroke="#00d4ff" stroke-width="1.5">
+        <circle cx="12" cy="12" r="3.5"/>
+        <path d="M3 9l4 3-4 3"/>
+        <rect x="7" y="8" width="14" height="8" rx="1.5"/>
+      </svg>
+    </div>
+    <div>
+      <div class="logo-text">SISCO</div>
+      <div class="logo-sub">Security Solutions</div>
+    </div>
+  </a>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="#services">Services</a></li>
+    <li><a href="#blog">Blog</a></li>
+    <li><a href="#why-us">Why Us</a></li>
+    <li><a href="#contact" class="nav-cta">Get a Quote</a></li>
+  </ul>
+  <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-grid"></div>
+  <div class="hero-scan"></div>
+  <div class="hero-content fade-up">
+    <div class="hero-badge">
+      <span class="rec-dot"></span>
+      Live Surveillance Support
+    </div>
+    <h1 class="hero-title">WATCH.<br>PROTECT.<br><span>SECURE.</span></h1>
+    <p class="hero-desc">Sisco Security Solutions delivers professional CCTV sales, installation, and round-the-clock service for homes and businesses across the region.</p>
+    <div class="hero-actions">
+      <a href="#contact" class="btn-primary">Get Free Consultation</a>
+      <a href="#services" class="btn-outline">Explore Services</a>
+    </div>
+  </div>
+  <div class="hero-stats">
+    <div class="stat-box">
+      <div class="stat-num">500+</div>
+      <div class="stat-label">Installations Done</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-num">24/7</div>
+      <div class="stat-label">Support Available</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-num">8+</div>
+      <div class="stat-label">Years Experience</div>
+    </div>
+  </div>
+</section>
+
+<!-- TICKER -->
+<div class="ticker">
+  <div class="ticker-inner" id="ticker">
+    <span class="ticker-item">CCTV Installation</span>
+    <span class="ticker-item">IP Camera Systems</span>
+    <span class="ticker-item">Remote Monitoring</span>
+    <span class="ticker-item">DVR & NVR Setup</span>
+    <span class="ticker-item">Annual Maintenance</span>
+    <span class="ticker-item">Night Vision Cameras</span>
+    <span class="ticker-item">PTZ Cameras</span>
+    <span class="ticker-item">Smart Home Security</span>
+    <span class="ticker-item">CCTV Installation</span>
+    <span class="ticker-item">IP Camera Systems</span>
+    <span class="ticker-item">Remote Monitoring</span>
+    <span class="ticker-item">DVR & NVR Setup</span>
+    <span class="ticker-item">Annual Maintenance</span>
+    <span class="ticker-item">Night Vision Cameras</span>
+    <span class="ticker-item">PTZ Cameras</span>
+    <span class="ticker-item">Smart Home Security</span>
+  </div>
+</div>
+
+<!-- SERVICES -->
+<section id="services">
+  <div class="section-tag">What We Do</div>
+  <h2 class="section-title fade-up">OUR <span>SERVICES</span></h2>
+  <p class="section-desc fade-up">From single-camera home setups to enterprise-grade multi-site surveillance networks — we've got you covered.</p>
+  <div class="services-grid fade-up">
+
+    <div class="service-card">
+      <span class="service-num">01</span>
+      <div class="service-icon">
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M3 9l4 3-4 3"/><rect x="7" y="8" width="14" height="8" rx="1"/></svg>
+      </div>
+      <h3>CCTV Installation</h3>
+      <p>Complete end-to-end camera installation for homes, offices, warehouses, and retail spaces using the latest IP and HD technology.</p>
+    </div>
+
+    <div class="service-card">
+      <span class="service-num">02</span>
+      <div class="service-icon">
+        <svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/><circle cx="12" cy="10" r="3"/></svg>
+      </div>
+      <h3>DVR / NVR Setup</h3>
+      <p>Professional configuration of Digital and Network Video Recorders with remote access, storage management, and playback capabilities.</p>
+    </div>
+
+    <div class="service-card">
+      <span class="service-num">03</span>
+      <div class="service-icon">
+        <svg viewBox="0 0 24 24"><path d="M12 2l3 7h7l-5.5 4 2 7L12 16l-6.5 4 2-7L2 9h7z"/></svg>
+      </div>
+      <h3>Remote Monitoring</h3>
+      <p>Set up live camera feeds accessible from your smartphone, tablet, or computer — monitor your property from anywhere in the world.</p>
+    </div>
+
+    <div class="service-card">
+      <span class="service-num">04</span>
+      <div class="service-icon">
+        <svg viewBox="0 0 24 24"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
+      </div>
+      <h3>Repairs & Service</h3>
+      <p>Fast, reliable repair service for all CCTV brands. Camera faults, cable issues, recording problems — our technicians fix it right.</p>
+    </div>
+
+    <div class="service-card">
+      <span class="service-num">05</span>
+      <div class="service-icon">
+        <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+      </div>
+      <h3>AMC Packages</h3>
+      <p>Annual Maintenance Contracts that keep your surveillance system running at peak performance with scheduled check-ups and priority support.</p>
+    </div>
+
+    <div class="service-card">
+      <span class="service-num">06</span>
+      <div class="service-icon">
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
+      </div>
+      <h3>24/7 Emergency Support</h3>
+      <p>Security doesn't sleep. Our team is on-call around the clock for urgent technical issues and critical system failures.</p>
+    </div>
+
+  </div>
+</section>
+
+<!-- BLOG -->
+<section id="blog" style="background:var(--dark);padding-top:100px;padding-bottom:100px">
+  <div style="padding:0 5%">
+    <div class="section-tag">Knowledge Base</div>
+    <h2 class="section-title fade-up">SECURITY <span>INSIGHTS</span></h2>
+    <p class="section-desc fade-up">Expert tips, buying guides, and industry news to help you make smart security decisions.</p>
+  </div>
+  <div style="padding:0 5%" class="blog-grid fade-up">
+
+    <a href="#" class="blog-card blog-feature">
+      <div class="scan-line"></div>
+      <div style="display:flex;gap:10px;margin-bottom:18px;flex-wrap:wrap">
+        <span class="tag">Featured</span>
+        <span class="tag">Buying Guide</span>
+      </div>
+      <div class="blog-cat">CCTV Technology</div>
+      <h2>Analog vs IP Cameras: Which Is Right for Your Property in 2025?</h2>
+      <p>With so many options on the market, choosing between traditional analog and modern IP camera systems can be confusing. We break down the real differences in image quality, installation cost, scalability, and remote access so you can make the best investment for your security needs.</p>
+      <div class="blog-meta">
+        <span>📅 March 12, 2025</span>
+        <span>⏱ 7 min read</span>
+        <span>By Sisco Team</span>
+      </div>
+      <span class="read-more">Continue Reading <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+    </a>
+
+    <a href="#" class="blog-card">
+      <div class="scan-line"></div>
+      <div class="blog-cat">Home Security</div>
+      <h2>5 Spots You're Forgetting to Cover with Cameras at Home</h2>
+      <p>Most homeowners focus on front doors — but experienced burglars exploit blind spots. Here's where your cameras should really be pointing.</p>
+      <div class="blog-meta">
+        <span>Feb 28, 2025</span>
+        <span>4 min read</span>
+      </div>
+      <span class="read-more">Read Article <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+    </a>
+
+    <a href="#" class="blog-card">
+      <div class="scan-line"></div>
+      <div class="blog-cat">Business Security</div>
+      <h2>How Retail Stores Can Cut Theft Losses with Smart CCTV</h2>
+      <p>AI-powered surveillance and strategic camera placement can reduce shoplifting incidents by up to 60%. Here's how to set up your store.</p>
+      <div class="blog-meta">
+        <span>Feb 14, 2025</span>
+        <span>5 min read</span>
+      </div>
+      <span class="read-more">Read Article <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+    </a>
+
+    <a href="#" class="blog-card">
+      <div class="scan-line"></div>
+      <div class="blog-cat">Maintenance Tips</div>
+      <h2>Why Your CCTV Footage Looks Blurry — And How to Fix It</h2>
+      <p>Blurry footage defeats the entire purpose of surveillance. From lens dirt to bandwidth settings, these are the most common causes and their fixes.</p>
+      <div class="blog-meta">
+        <span>Jan 30, 2025</span>
+        <span>5 min read</span>
+      </div>
+      <span class="read-more">Read Article <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+    </a>
+
+    <a href="#" class="blog-card">
+      <div class="scan-line"></div>
+      <div class="blog-cat">Technology</div>
+      <h2>Night Vision vs Colour Night Vision: What You Need to Know</h2>
+      <p>The latest colour night vision cameras can capture full-colour footage in near darkness. But are they worth the premium? We compare both technologies.</p>
+      <div class="blog-meta">
+        <span>Jan 15, 2025</span>
+        <span>4 min read</span>
+      </div>
+      <span class="read-more">Read Article <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+    </a>
+
+    <a href="#" class="blog-card">
+      <div class="scan-line"></div>
+      <div class="blog-cat">Product Guide</div>
+      <h2>How Much Storage Do You Need for 30 Days of CCTV Recording?</h2>
+      <p>Understanding bitrates, resolution, and compression to calculate exactly how much HDD storage your NVR or DVR system needs for continuous recording.</p>
+      <div class="blog-meta">
+        <span>Jan 5, 2025</span>
+        <span>6 min read</span>
+      </div>
+      <span class="read-more">Read Article <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+    </a>
+
+  </div>
+</section>
+
+<!-- WHY US -->
+<section id="why-us" class="why-section">
+  <div class="section-tag">Our Advantage</div>
+  <h2 class="section-title fade-up">WHY <span>SISCO?</span></h2>
+  <p class="section-desc fade-up">We're not just vendors — we're your long-term security partners.</p>
+  <div class="why-grid fade-up">
+    <div class="why-visual">
+      <div class="cctv-frame">
+        <div class="cctv-img-placeholder">
+          <div class="cam-icon-big">
+            <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="50" cy="50" r="30" stroke="#00d4ff" stroke-width=".8" stroke-dasharray="4 4"/>
+              <circle cx="50" cy="50" r="18" stroke="#00d4ff" stroke-width=".8"/>
+              <circle cx="50" cy="50" r="8" fill="rgba(0,212,255,0.1)" stroke="#00d4ff" stroke-width=".8"/>
+              <line x1="50" y1="10" x2="50" y2="20" stroke="#00d4ff" stroke-width=".8"/>
+              <line x1="50" y1="80" x2="50" y2="90" stroke="#00d4ff" stroke-width=".8"/>
+              <line x1="10" y1="50" x2="20" y2="50" stroke="#00d4ff" stroke-width=".8"/>
+              <line x1="80" y1="50" x2="90" y2="50" stroke="#00d4ff" stroke-width=".8"/>
+            </svg>
+          </div>
+          <div class="cctv-overlay-text">SISCO SECURITY<br>● LIVE MONITORING ACTIVE ●</div>
+        </div>
+        <div class="cctv-hud">
+          <div class="cctv-corner tl"></div>
+          <div class="cctv-corner tr"></div>
+          <div class="cctv-corner bl"></div>
+          <div class="cctv-corner br"></div>
+          <div class="cctv-info" id="cctvClock">--:--:--</div>
+          <div class="cctv-bottom">
+            <div class="cctv-live"><span class="rec-dot"></span> REC</div>
+            <div style="font-family:var(--font-mono);font-size:9px;color:var(--cyan);letter-spacing:1px">CAM 01 / HD 1080P</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="why-list">
+      <div class="why-item">
+        <div class="why-check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+        <div>
+          <h4>Certified Technicians</h4>
+          <p>All our engineers are factory-trained and certified. Every installation meets industry safety standards.</p>
+        </div>
+      </div>
+      <div class="why-item">
+        <div class="why-check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+        <div>
+          <h4>Brand-Agnostic Experts</h4>
+          <p>We work with all major brands — Hikvision, Dahua, CP Plus, TVT and more — giving you unbiased advice on the best fit.</p>
+        </div>
+      </div>
+      <div class="why-item">
+        <div class="why-check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+        <div>
+          <h4>Same-Day Emergency Service</h4>
+          <p>Security can't wait. We dispatch technicians on the same day for urgent issues with no extra call-out charge.</p>
+        </div>
+      </div>
+      <div class="why-item">
+        <div class="why-check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+        <div>
+          <h4>Transparent Pricing</h4>
+          <p>No hidden fees, no surprise costs. Get a detailed written quote before any work begins.</p>
+        </div>
+      </div>
+      <div class="why-item">
+        <div class="why-check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+        <div>
+          <h4>Post-Installation Support</h4>
+          <p>We don't disappear after the job. Get free remote assistance for 3 months after any new installation.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="testimonials">
+  <div class="section-tag">Client Feedback</div>
+  <h2 class="section-title fade-up">WHAT CLIENTS <span>SAY</span></h2>
+  <div class="testi-grid fade-up">
+    <div class="testi-card">
+      <div class="stars">★★★★★</div>
+      <p class="testi-text">Sisco installed cameras across our entire warehouse in one day. The team was professional, the cabling is neat, and the remote viewing app works perfectly. Highly recommended.</p>
+      <div class="testi-author">
+        <div class="testi-avatar">RK</div>
+        <div>
+          <div class="testi-name">Ravi Kumar</div>
+          <div class="testi-role">Logistics Manager · Hyderabad</div>
+        </div>
+      </div>
+    </div>
+    <div class="testi-card">
+      <div class="stars">★★★★★</div>
+      <p class="testi-text">Had an old analog system that kept failing. Sisco upgraded us to a full IP setup with night vision. Crystal clear footage now. Their AMC package gives me peace of mind.</p>
+      <div class="testi-author">
+        <div class="testi-avatar">SN</div>
+        <div>
+          <div class="testi-name">Sunita Nair</div>
+          <div class="testi-role">Restaurant Owner · Secunderabad</div>
+        </div>
+      </div>
+    </div>
+    <div class="testi-card">
+      <div class="stars">★★★★★</div>
+      <p class="testi-text">Responsive, knowledgeable, and honest. Sisco didn't try to oversell me — they recommended exactly what I needed for my home. Installation was clean and quick.</p>
+      <div class="testi-author">
+        <div class="testi-avatar">AP</div>
+        <div>
+          <div class="testi-name">Arun Prasad</div>
+          <div class="testi-role">Homeowner · Warangal</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact" class="contact-section">
+  <div class="section-tag">Reach Out</div>
+  <h2 class="section-title fade-up">GET IN <span>TOUCH</span></h2>
+  <p class="section-desc fade-up">Ready to secure your property? Contact us for a free site survey and no-obligation quote.</p>
+  <div class="contact-grid fade-up">
+    <div class="contact-info">
+      <div class="contact-item">
+        <div class="contact-item-icon">
+          <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013 7a2 2 0 012-2.18h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L9.09 12a16 16 0 006.91 6.91l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7a2 2 0 011.72 2z"/></svg>
+        </div>
+        <div>
+          <h4>Phone</h4>
+          <p>+91 98765 43210<br>+91 91234 56789</p>
+        </div>
+      </div>
+      <div class="contact-item">
+        <div class="contact-item-icon">
+          <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+        </div>
+        <div>
+          <h4>Email</h4>
+          <p>info@siscosecurity.com<br>support@siscosecurity.com</p>
+        </div>
+      </div>
+      <div class="contact-item">
+        <div class="contact-item-icon">
+          <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        </div>
+        <div>
+          <h4>Location</h4>
+          <p>Hyderabad, Telangana<br>Serving all surrounding districts</p>
+        </div>
+      </div>
+      <div class="contact-item">
+        <div class="contact-item-icon">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        </div>
+        <div>
+          <h4>Working Hours</h4>
+          <p>Mon – Sat: 9:00 AM – 7:00 PM<br>Emergency support: 24/7</p>
+        </div>
+      </div>
+    </div>
+    <form class="contact-form" onsubmit="handleSubmit(event)">
+      <div class="form-row">
+        <input type="text" placeholder="Your Name" required>
+        <input type="tel" placeholder="Phone Number" required>
+      </div>
+      <input type="email" placeholder="Email Address">
+      <select>
+        <option value="" disabled selected>Select Service Needed</option>
+        <option>CCTV Installation – Home</option>
+        <option>CCTV Installation – Business</option>
+        <option>DVR / NVR Setup</option>
+        <option>Camera Repair & Maintenance</option>
+        <option>Remote Monitoring Setup</option>
+        <option>AMC Package</option>
+        <option>Other</option>
+      </select>
+      <textarea placeholder="Tell us about your property and security needs..."></textarea>
+      <button type="submit" class="submit-btn">Send Message →</button>
+      <div id="formMsg" style="font-family:var(--font-mono);font-size:12px;color:var(--cyan);display:none;letter-spacing:1px">✓ Message sent! We'll contact you within 2 hours.</div>
+    </form>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <div class="logo">
+        <div class="logo-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#00d4ff" stroke-width="1.5">
+            <circle cx="12" cy="12" r="3.5"/>
+            <path d="M3 9l4 3-4 3"/>
+            <rect x="7" y="8" width="14" height="8" rx="1.5"/>
+          </svg>
+        </div>
+        <div>
+          <div class="logo-text">SISCO</div>
+          <div class="logo-sub">Security Solutions</div>
+        </div>
+      </div>
+      <p class="footer-desc">Professional CCTV sales, installation, and service for homes and businesses. Protecting what matters most since 2016.</p>
+    </div>
+    <div class="footer-col">
+      <h5>Services</h5>
+      <ul>
+        <li><a href="#">CCTV Installation</a></li>
+        <li><a href="#">DVR / NVR Setup</a></li>
+        <li><a href="#">Remote Monitoring</a></li>
+        <li><a href="#">Repairs & Maintenance</a></li>
+        <li><a href="#">AMC Packages</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h5>Blog</h5>
+      <ul>
+        <li><a href="#">Buying Guides</a></li>
+        <li><a href="#">Home Security</a></li>
+        <li><a href="#">Business Security</a></li>
+        <li><a href="#">Maintenance Tips</a></li>
+        <li><a href="#">Industry News</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h5>Company</h5>
+      <ul>
+        <li><a href="#">About Us</a></li>
+        <li><a href="#">Our Team</a></li>
+        <li><a href="#">Careers</a></li>
+        <li><a href="#contact">Contact</a></li>
+        <li><a href="#">Privacy Policy</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="footer-copy">© 2025 SISCO SECURITY SOLUTIONS · ALL RIGHTS RESERVED</div>
+    <div class="social-links">
+      <a href="#" aria-label="Facebook">
+        <svg viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg>
+      </a>
+      <a href="#" aria-label="Instagram">
+        <svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+      </a>
+      <a href="#" aria-label="WhatsApp">
+        <svg viewBox="0 0 24 24"><path d="M3 21l1.65-3.8a9 9 0 113.4 2.9L3 21"/><path d="M9 10c.5 1 1 2 2 2.5.6.3 1.2.3 1.8 0"/></svg>
+      </a>
+      <a href="#" aria-label="YouTube">
+        <svg viewBox="0 0 24 24"><path d="M22.54 6.42a2.78 2.78 0 00-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46A2.78 2.78 0 001.46 6.42 29 29 0 001 12a29 29 0 00.46 5.58A2.78 2.78 0 003.41 19.6C5.12 20 12 20 12 20s6.88 0 8.59-.4a2.78 2.78 0 001.95-1.97A29 29 0 0023 12a29 29 0 00-.46-5.58z"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02" fill="currentColor" stroke="none"/></svg>
+      </a>
+    </div>
+  </div>
+</footer>
+
+<script>
+// Mobile menu
+document.getElementById('menuToggle').addEventListener('click',function(){
+  document.getElementById('navLinks').classList.toggle('open');
+});
+
+// CCTV clock
+function updateClock(){
+  const n=new Date();
+  const t=[n.getHours(),n.getMinutes(),n.getSeconds()].map(v=>String(v).padStart(2,'0')).join(':');
+  const d=n.toLocaleDateString('en-IN',{day:'2-digit',month:'short',year:'numeric'}).toUpperCase();
+  document.getElementById('cctvClock').textContent=d+' '+t;
+}
+setInterval(updateClock,1000);updateClock();
+
+// Scroll animations
+const observer=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible')});
+},{threshold:.1});
+document.querySelectorAll('.fade-up').forEach(el=>observer.observe(el));
+
+// Ticker clone for seamless loop
+(function(){
+  const t=document.getElementById('ticker');
+  t.innerHTML+=t.innerHTML;
+})();
+
+// Form submit
+function handleSubmit(e){
+  e.preventDefault();
+  const msg=document.getElementById('formMsg');
+  msg.style.display='block';
+  e.target.reset();
+  setTimeout(()=>msg.style.display='none',6000);
+}
+
+// Nav shrink on scroll
+window.addEventListener('scroll',function(){
+  document.querySelector('nav').style.height=window.scrollY>60?'56px':'72px';
+});
+</script>
+</body>
+</html>
